@@ -1,0 +1,23 @@
+Package: EPICbrowser
+Type: Package
+Title: EPICbrowser
+Version: 0.1.0
+Authors@R: person("Mark", "Long",
+    email = "mark.long@roswellpark.org",
+    role = c("aut", "cre"))
+Description: EPICbrowser imports and analyzes EPIC array data (using the CHAMP
+    package) and performs several analyses including genome binning visualization
+    and genome browser implementation.
+Depends:
+    R (>= 3.3.0)
+Imports:
+    SummarizedExperiment,
+    dplyr,
+    magrittr,
+    reshape2,
+    ChAMP
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 5.0.1
+Suggests:
