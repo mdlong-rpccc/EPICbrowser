@@ -22,16 +22,17 @@
 
 batch.Norm <- function(batchNorm_name = "batchNorm_ComBat_normalized_EPIC_betaVals"){
 
-    if(!exists("myLoad", envir = .GlobalEnv) | !class(myLoad) == "list"){
-        stop("Run idat.Load() to import IDAT files")
-    }
-
-    if(!exists("myNorm", envir = .GlobalEnv) | !class(myNorm) == "list"){
-        stop("Run bmiq.Norm() to run BMIQ")
-    }
-
 
     if(!file.exists(paste(batchNorm_name, ".RData", sep = ""))){
+        # Create stop if myLoad isn't available
+        if(!exists("myLoad", envir = .GlobalEnv) | !class(myLoad) == "list"){
+            stop("Run idat.Load() to import IDAT files")
+        }
+        # Create stop if myNorm isn't available
+        if(!exists("myNorm", envir = .GlobalEnv) | !class(myNorm) == "list"){
+            stop("Run bmiq.Norm() to run BMIQ")
+        }
+        # Run/Save batchNorm using champ.runCombat
         batchNorm <- champ.runCombat()
         save(batchNorm, file = paste(batchNorm_name, ".RData", sep = ""))
     }
@@ -50,11 +51,14 @@ batch.Norm <- function(batchNorm_name = "batchNorm_ComBat_normalized_EPIC_betaVa
     batchNorm.table <- read.csv("ChAMP-normalized_ComBat-adjusted_EPIC-beta-values_A.csv", header = TRUE, row.names = 1)
 
     # Plot hierarchical clustering (with euclidean distance) of normalized beta-values
+    if(!file.exists(paste(batchNorm_name, "_clustering.pdf", sep = ""))){
     pdf(file = paste(batchNorm_name, "_clustering.pdf", sep = ""))
     plot(hclust(dist(t(batchNorm.table))))
     dev.off()
+    }
 
     # Plot Heatmap of euclidean distance
+    if(!file.exists(paste(batchNorm_name, "_distanceMatrix.pdf", sep = ""))){
     colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
     labels <- rownames(myLoad$pd)
     pdf(file = paste(batchNorm_name, "_distanceMatrix.pdf", sep = ""))
@@ -63,6 +67,6 @@ batch.Norm <- function(batchNorm_name = "batchNorm_ComBat_normalized_EPIC_betaVa
              labels_row = labels,
              col=colors)
     dev.off()
-
+    }
 }
 

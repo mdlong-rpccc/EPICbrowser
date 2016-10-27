@@ -36,8 +36,9 @@ bmiq.Norm <- function(myNorm_name = "myNorm_BMIQ_normalized_EPIC_betaVals"){
     myNorm.table <- as.data.frame(myNorm)
 
     # Plot hierarchical clustering (with euclidean distance) of normalized beta-values
-    pdf(file = paste(myNorm_name, "clustering.pdf", sep = ""))
+    if(!file.exists(paste(myNorm_name, "_clustering.pdf", sep = ""))){
+    pdf(file = paste(myNorm_name, "_clustering.pdf", sep = ""))
     plot(hclust(dist(t(myNorm.table))))
     dev.off()
-
+    }
 }
