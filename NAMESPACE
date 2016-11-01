@@ -2,10 +2,13 @@
 
 export(CGI.load)
 export(batch.Norm)
+export(beta.thresh)
 export(bmiq.Norm)
 export(ensembl.load)
 export(idat.Load)
+export(limma.MVP)
 export(refSeq.load)
+importFrom(ChAMP,champ.MVP)
 importFrom(ChAMP,champ.load)
 importFrom(ChAMP,champ.norm)
 importFrom(ChAMP,champ.runCombat)
